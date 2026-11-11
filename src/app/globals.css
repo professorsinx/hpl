@@ -85,9 +85,10 @@ a {
   border-radius: 6px;
   background: var(--lime);
   color: var(--forest-deep);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   transition: transform 160ms ease;
+  z-index: 60;
 }
 
 .skip-link:focus {
@@ -95,10 +96,13 @@ a {
 }
 
 .site-header {
-  position: relative;
-  z-index: 5;
-  background: var(--forest-deep);
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+  background: rgb(12 33 29 / 94%);
   color: white;
+  backdrop-filter: blur(10px);
 }
 
 .nav-wrap,
@@ -140,14 +144,6 @@ a {
   background: white;
 }
 
-.brand-mark img {
-  width: 72px;
-  height: 49px;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-}
-
 .brand-copy {
   display: grid;
   gap: 2px;
@@ -165,7 +161,7 @@ a {
 
 .brand-copy small {
   color: rgb(255 255 255 / 62%);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.045em;
 }
 
@@ -177,7 +173,7 @@ a {
 
 .main-nav a,
 .nav-cta {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
 }
@@ -255,7 +251,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.16em;
 }
@@ -277,7 +273,7 @@ a {
 .hero-location {
   margin: 31px 0 12px;
   color: rgb(255 255 255 / 58%);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.15em;
 }
@@ -308,7 +304,7 @@ a {
   max-width: 460px;
   margin: 24px 0 0;
   color: rgb(255 255 255 / 72%);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.8;
 }
 
@@ -328,7 +324,7 @@ a {
   gap: 12px;
   padding: 0 19px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   text-decoration: none;
   transition: background 160ms ease, transform 160ms ease;
@@ -353,7 +349,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -368,7 +364,7 @@ a {
   gap: 8px;
   margin: 28px 0 0;
   color: rgb(255 255 255 / 55%);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .hero-note svg {
@@ -391,41 +387,6 @@ a {
   border-radius: 50%;
   background: radial-gradient(circle, rgb(211 242 90 / 16%), rgb(211 242 90 / 2%) 67%, transparent 69%);
   content: "";
-}
-
-.art-orbit {
-  position: absolute;
-  width: 345px;
-  max-width: 82%;
-  aspect-ratio: 1;
-  border: 1px solid rgb(211 242 90 / 18%);
-  border-radius: 50%;
-}
-
-.orbit-two {
-  width: 420px;
-  max-width: 100%;
-  border-color: rgb(255 255 255 / 9%);
-}
-
-.crest-frame {
-  position: relative;
-  display: grid;
-  width: min(72%, 344px);
-  aspect-ratio: 1;
-  overflow: hidden;
-  place-items: center;
-  border: 8px solid rgb(211 242 90 / 80%);
-  border-radius: 50%;
-  background: #f4f3e8;
-  box-shadow: 0 26px 90px rgb(0 0 0 / 30%), 0 0 0 13px rgb(211 242 90 / 8%);
-  transform: rotate(-7deg);
-}
-
-.crest-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .art-date {
@@ -454,13 +415,13 @@ a {
 }
 
 .art-date strong {
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.03em;
 }
 
 .art-date small {
   color: var(--muted-ink);
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -473,29 +434,11 @@ a {
   border-radius: 3px;
   background: var(--pink);
   color: var(--forest-deep);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.1em;
   line-height: 1.55;
   transform: rotate(-7deg);
-}
-
-.art-star {
-  position: absolute;
-  color: var(--lime);
-}
-
-.star-one {
-  top: 65px;
-  right: 23%;
-  font-size: 25px;
-}
-
-.star-two {
-  bottom: 40px;
-  left: 14%;
-  color: var(--pink);
-  font-size: 18px;
 }
 
 .scroll-cue {
@@ -542,8 +485,8 @@ a {
 }
 
 .section-kicker {
-  color: #68823c;
-  font-size: 9px;
+  color: #587230;
+  font-size: 12px;
 }
 
 .facts-heading strong {
@@ -575,11 +518,11 @@ a {
 
 .fact small {
   color: var(--muted-ink);
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .fact strong {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 750;
 }
 
@@ -625,7 +568,7 @@ a {
 .eligibility-copy > p,
 .dates-intro > p {
   color: var(--muted-ink);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.9;
 }
 
@@ -668,7 +611,7 @@ a {
 }
 
 .about-stamp span {
-  font-size: 7px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.13em;
   line-height: 1.4;
@@ -695,7 +638,7 @@ a {
   max-width: 250px;
   margin: 0 0 5px;
   color: var(--muted-ink);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -721,7 +664,7 @@ a {
   top: 24px;
   right: 23px;
   color: #a4b09d;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.1em;
 }
@@ -738,7 +681,7 @@ a {
 
 .format-card h3 {
   margin: 19px 0 8px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 750;
   letter-spacing: -0.03em;
 }
@@ -746,7 +689,7 @@ a {
 .format-card p {
   margin: 0;
   color: var(--muted-ink);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.75;
 }
 
@@ -778,7 +721,7 @@ a {
   padding-top: 18px;
   border-top: 1px solid var(--line);
   color: #46564b;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
@@ -821,13 +764,13 @@ a {
 .roles-card-head small,
 .contact-overline {
   color: #718067;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.14em;
 }
 
 .roles-card-head strong {
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: -0.03em;
 }
 
@@ -846,7 +789,7 @@ a {
   padding: 12px 0;
   border-bottom: 1px solid #eff1eb;
   color: #39483e;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 570;
 }
 
@@ -860,7 +803,7 @@ a {
   border-radius: 0 0 7px 7px;
   background: #f1f4ec;
   color: #566450;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   text-align: center;
 }
@@ -894,7 +837,7 @@ a {
   border-left: 2px solid var(--lime);
   background: rgb(255 255 255 / 5%);
   color: rgb(255 255 255 / 70%);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.75;
 }
 
@@ -938,7 +881,7 @@ a {
   border-radius: 50%;
   background: var(--forest);
   color: rgb(255 255 255 / 70%);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -950,12 +893,12 @@ a {
 
 .timeline-date {
   color: var(--lime);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 750;
 }
 
 .timeline-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -963,7 +906,7 @@ a {
   grid-column: 3;
   margin-top: -6px;
   color: rgb(255 255 255 / 57%);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .register-section {
@@ -1001,7 +944,7 @@ a {
   max-width: 400px;
   margin: 22px 0 24px;
   color: #43583a;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.8;
 }
 
@@ -1013,7 +956,7 @@ a {
   border: 1px solid rgb(16 45 37 / 17%);
   border-radius: 4px;
   color: var(--forest);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 750;
 }
 
@@ -1041,7 +984,7 @@ a {
 .contact-card > p {
   margin: 0 0 18px;
   color: var(--muted-ink);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
@@ -1077,12 +1020,12 @@ a {
 
 .contact-link small {
   color: #7d877a;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .contact-link strong {
   color: var(--forest);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .contact-deadline {
@@ -1098,20 +1041,20 @@ a {
 
 .contact-deadline span {
   color: #6b7962;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
 .contact-deadline strong {
   color: var(--forest);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .contact-deadline small {
   grid-column: 1 / -1;
   color: #788273;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .site-footer {
@@ -1119,55 +1062,17 @@ a {
   color: white;
 }
 
-.footer-inner {
-  display: flex;
-  min-height: 110px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
 .footer-brand .brand-mark {
   width: 43px;
   height: 43px;
 }
 
-.footer-brand .brand-mark img {
-  width: 63px;
-  height: 43px;
-}
-
 .footer-brand .brand-copy strong {
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .footer-brand .brand-copy small {
-  font-size: 9px;
-}
-
-.footer-inner > p {
-  margin: 0;
-  color: rgb(255 255 255 / 60%);
-  font-size: 10px;
-  line-height: 1.7;
-}
-
-.footer-contact {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgb(255 255 255 / 76%);
-  font-size: 10px;
-  text-decoration: none;
-}
-
-.footer-contact:hover {
-  color: var(--lime);
-}
-
-.footer-copyright {
-  color: rgb(255 255 255 / 43%);
-  font-size: 9px;
+  font-size: 12px;
 }
 
 @media (max-width: 980px) {
@@ -1182,14 +1087,6 @@ a {
 
   .nav-wrap {
     gap: 15px;
-  }
-
-  .main-nav {
-    gap: 17px;
-  }
-
-  .main-nav a {
-    font-size: 10px;
   }
 
   .hero-grid {
@@ -1245,16 +1142,6 @@ a {
     gap: 45px;
   }
 
-  .footer-inner {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-top: 22px;
-    padding-bottom: 22px;
-  }
-
-  .footer-copyright {
-    margin-left: auto;
-  }
 }
 
 @media (max-width: 680px) {
@@ -1272,19 +1159,11 @@ a {
   }
 
   .nav-wrap {
-    min-height: 70px;
-    flex-wrap: wrap;
-    gap: 0;
-    padding: 10px 0;
+    min-height: 66px;
   }
 
   .brand-mark {
     width: 42px;
-    height: 42px;
-  }
-
-  .brand-mark img {
-    width: 62px;
     height: 42px;
   }
 
@@ -1293,25 +1172,13 @@ a {
   }
 
   .brand-copy small {
-    font-size: 8px;
-  }
-
-  .main-nav {
-    order: 3;
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 11px 0 2px;
-  }
-
-  .main-nav a {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .nav-cta {
     min-height: 36px;
     padding: 0 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .hero-grid {
@@ -1327,7 +1194,7 @@ a {
 
   .hero-location {
     margin-top: 26px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .hero h1 {
@@ -1337,7 +1204,7 @@ a {
   .hero-description {
     max-width: 440px;
     margin-top: 19px;
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .hero-actions {
@@ -1348,31 +1215,18 @@ a {
   .button {
     min-height: 46px;
     padding: 0 13px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .hero-note {
     align-items: flex-start;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.6;
   }
 
   .hero-art {
     min-height: 310px;
     margin-top: 0;
-  }
-
-  .crest-frame {
-    width: min(64vw, 274px);
-    border-width: 6px;
-  }
-
-  .art-orbit {
-    width: 275px;
-  }
-
-  .orbit-two {
-    width: 320px;
   }
 
   .art-date {
@@ -1383,27 +1237,17 @@ a {
   }
 
   .art-date strong {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .art-date small {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .art-tag {
     top: 38px;
     left: 0;
-    font-size: 8px;
-  }
-
-  .star-one {
-    top: 24px;
-    right: 14%;
-  }
-
-  .star-two {
-    bottom: 21px;
-    left: 9%;
+    font-size: 11px;
   }
 
   .facts-inner {
@@ -1419,7 +1263,7 @@ a {
   }
 
   .facts-heading strong {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .fact {
@@ -1432,11 +1276,11 @@ a {
   }
 
   .fact small {
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .fact strong {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .about-section {
@@ -1459,11 +1303,11 @@ a {
   }
 
   .about-copy p:first-child {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .about-copy p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .about-stamp {
@@ -1479,7 +1323,7 @@ a {
   }
 
   .about-stamp span {
-    font-size: 6px;
+    font-size: 11px;
   }
 
   .format-section {
@@ -1493,7 +1337,7 @@ a {
 
   .section-heading > p {
     margin-top: 13px;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .format-card {
@@ -1502,11 +1346,11 @@ a {
   }
 
   .format-card h3 {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .format-card p {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .format-number {
@@ -1522,7 +1366,7 @@ a {
   }
 
   .eligibility-copy > p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .roles-card {
@@ -1534,7 +1378,7 @@ a {
     margin-left: -20px;
     padding-right: 15px;
     padding-left: 15px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .dates-section {
@@ -1547,7 +1391,7 @@ a {
   }
 
   .dates-intro > p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .dates-footnote {
@@ -1561,15 +1405,15 @@ a {
   }
 
   .timeline-date {
-    font-size: 10px;
-  }
-
-  .timeline-title {
     font-size: 12px;
   }
 
+  .timeline-title {
+    font-size: 14px;
+  }
+
   .timeline-note {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .register-inner {
@@ -1580,7 +1424,7 @@ a {
   }
 
   .register-copy > p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .contact-card {
@@ -1599,27 +1443,9 @@ a {
   }
 
   .contact-link strong {
-    font-size: 10px;
+    font-size: 12px;
   }
 
-  .footer-inner {
-    gap: 15px;
-    padding-top: 22px;
-    padding-bottom: 22px;
-  }
-
-  .footer-inner > p {
-    width: 100%;
-    padding-left: 55px;
-  }
-
-  .footer-contact {
-    font-size: 9px;
-  }
-
-  .footer-copyright {
-    font-size: 8px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1632,3 +1458,4 @@ a {
     animation-iteration-count: 1 !important;
   }
 }
+

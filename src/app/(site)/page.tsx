@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowDown,
   ArrowRight,
@@ -6,12 +7,19 @@ import {
   Check,
   Clock3,
   HeartPulse,
+  Mail,
   MapPin,
   Phone,
   ShieldCheck,
   Trophy,
   UsersRound,
 } from "lucide-react";
+import { GalleryTeaser } from "@/components/gallery/gallery-teaser";
+import { RegisterButton } from "@/components/registration/register-button";
+import { Scene } from "@/components/scenes";
+import { Reveal } from "@/components/site/reveal";
+import { SponsorMarquee } from "@/components/sponsors/sponsor-marquee";
+import { formatInr, site } from "@/lib/site";
 
 const tournamentFacts = [
   { icon: Clock3, label: "Match format", value: "10 overs a side" },
@@ -38,41 +46,6 @@ const eligibleRoles = [
 export default function Home() {
   return (
     <>
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-
-      <header className="site-header">
-        <div className="nav-wrap">
-          <a className="brand" href="#top" aria-label="HPL 2027 home">
-            <span className="brand-mark">
-              <Image
-                src="/images/hpl-logo.jpeg"
-                alt=""
-                width={56}
-                height={56}
-                priority
-              />
-            </span>
-            <span className="brand-copy">
-              <strong>HPL <span>2027</span></strong>
-              <small>Healthcare Premier League</small>
-            </span>
-          </a>
-
-          <nav className="main-nav" aria-label="Main navigation">
-            <a href="#about">The cause</a>
-            <a href="#tournament">Tournament</a>
-            <a href="#eligibility">Who can play</a>
-            <a href="#dates">Key dates</a>
-          </nav>
-
-          <a className="nav-cta" href="#register">
-            Join the league <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
-      </header>
-
       <main id="main-content" tabIndex={-1}>
       <section className="hero" id="top" aria-labelledby="hero-title">
         <div className="hero-grid">
@@ -92,9 +65,9 @@ export default function Home() {
               cricket league playing for something bigger than the scoreboard.
             </p>
             <div className="hero-actions">
-              <a className="button button-lime" href="#register">
-                Registration opens 15 Dec <ArrowRight size={17} aria-hidden="true" />
-              </a>
+              <RegisterButton className="button button-lime">
+                Register your team <ArrowRight size={17} aria-hidden="true" />
+              </RegisterButton>
               <a className="text-link" href="#about">
                 Discover HPL <ArrowDown size={16} aria-hidden="true" />
               </a>
@@ -105,26 +78,16 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="hero-art" aria-label="HPL 2027 tournament crest">
-            <div className="art-orbit orbit-one" />
-            <div className="art-orbit orbit-two" />
-            <div className="crest-frame">
-              <Image
-                className="crest-image"
-                src="/images/hpl-logo.jpeg"
-                alt="Healthcare Premier League 2027 crest with a cricket bat, ball and cancer awareness ribbon"
-                width={520}
-                height={260}
-                priority
-              />
+          <div className="hero-art">
+            <Scene id={site.heroScene} />
+            <div className="art-crest" aria-hidden="true">
+              <Image src="/images/hpl-logo.jpeg" alt="" width={176} height={86} priority />
             </div>
             <div className="art-date">
               <CalendarDays size={18} aria-hidden="true" />
               <span><strong>04 FEB</strong><small>WORLD CANCER DAY</small></span>
             </div>
             <div className="art-tag">PLAY FOR A<br />GREATER CAUSE</div>
-            <span className="art-star star-one">✳</span>
-            <span className="art-star star-two">✳</span>
           </div>
         </div>
         <a className="scroll-cue" href="#tournament" aria-label="Scroll to tournament details">
@@ -146,12 +109,12 @@ export default function Home() {
           ))}
           <div className="fact entry-fact">
             <span className="fact-icon"><span className="rupee-mark">₹</span></span>
-            <span><small>Team entry</small><strong>₹10,000</strong></span>
+            <span><small>Team entry</small><strong>{formatInr(site.entryFee)}</strong></span>
           </div>
         </div>
       </section>
 
-      <section className="about-section section-wrap" id="about">
+      <Reveal as="section" className="about-section section-wrap" id="about">
         <div className="about-heading">
           <span className="section-kicker">MORE THAN MATCH DAY</span>
           <h2>Play together.<br /><span>Stand together.</span></h2>
@@ -175,7 +138,7 @@ export default function Home() {
           <HeartPulse size={31} strokeWidth={1.6} />
           <span>UNITED<br />FOR CARE</span>
         </div>
-      </section>
+      </Reveal>
 
       <section className="format-section">
         <div className="section-wrap">
@@ -187,35 +150,35 @@ export default function Home() {
             <p>A few things to know before you lace up.</p>
           </div>
           <div className="format-grid">
-            <article className="format-card">
+            <Reveal as="article" className="format-card">
               <span className="format-number">01</span>
               <div className="format-icon"><Clock3 size={22} aria-hidden="true" /></div>
               <h3>Short, sharp cricket</h3>
               <p>Ten overs a side. Tennis ball. Bring your game face.</p>
-            </article>
-            <article className="format-card">
+            </Reveal>
+            <Reveal as="article" className="format-card" delay={80}>
               <span className="format-number">02</span>
               <div className="format-icon"><UsersRound size={22} aria-hidden="true" /></div>
               <h3>A full team effort</h3>
               <p>Eleven players and two reserves, with a captain and vice-captain.</p>
-            </article>
-            <article className="format-card">
+            </Reveal>
+            <Reveal as="article" className="format-card" delay={160}>
               <span className="format-number">03</span>
               <div className="format-icon"><Trophy size={22} aria-hidden="true" /></div>
               <h3>Every match matters</h3>
               <p>League play leads into the knockouts. Fixtures coming 30 January.</p>
-            </article>
-            <article className="format-card">
+            </Reveal>
+            <Reveal as="article" className="format-card" delay={240}>
               <span className="format-number">04</span>
               <div className="format-icon"><MapPin size={22} aria-hidden="true" /></div>
               <h3>Meet us in Trichy</h3>
               <p>The tournament ground will be announced by the organisers.</p>
-            </article>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="eligibility-section section-wrap" id="eligibility">
+      <Reveal as="section" className="eligibility-section section-wrap" id="eligibility">
         <div className="eligibility-copy">
           <span className="section-kicker">YOUR HOSPITAL. YOUR TEAM.</span>
           <h2>There&apos;s a place<br />for <span>you here.</span></h2>
@@ -241,7 +204,9 @@ export default function Home() {
           </ul>
           <div className="roles-footer">Mixed-gender teams · One hospital per player</div>
         </div>
-      </section>
+      </Reveal>
+
+      <SponsorMarquee />
 
       <section className="dates-section" id="dates">
         <div className="section-wrap dates-layout">
@@ -268,6 +233,8 @@ export default function Home() {
         </div>
       </section>
 
+      <GalleryTeaser />
+
       <section className="register-section" id="register">
         <div className="register-pattern" aria-hidden="true" />
         <div className="register-inner">
@@ -278,9 +245,14 @@ export default function Home() {
               Team registration opens 15 December 2026 and closes 15 January
               2027. Start building your squad now.
             </p>
-            <div className="register-status">
-              <span className="status-dot" />
-              Registration opens in December
+            <div className="register-actions">
+              <RegisterButton className="button button-forest">
+                Register your team <ArrowRight size={17} aria-hidden="true" />
+              </RegisterButton>
+              <span className="register-status">
+                <span className="status-dot" />
+                Opens {site.registration.opensLabel}
+              </span>
             </div>
           </div>
           <div className="contact-card">
@@ -293,37 +265,24 @@ export default function Home() {
               <ArrowRight size={17} aria-hidden="true" />
             </a>
             <a className="contact-link" href="mailto:rajuarumugham@gmail.com">
-              <span className="contact-link-icon"><CalendarDays size={17} aria-hidden="true" /></span>
+              <span className="contact-link-icon"><Mail size={17} aria-hidden="true" /></span>
               <span><small>Tournament director</small><strong>Raju Arumugham (Ara)</strong></span>
               <ArrowRight size={17} aria-hidden="true" />
             </a>
+            <Link className="contact-link" href="/organizers">
+              <span className="contact-link-icon"><UsersRound size={17} aria-hidden="true" /></span>
+              <span><small>Organising committee</small><strong>Meet the people behind HPL</strong></span>
+              <ArrowRight size={17} aria-hidden="true" />
+            </Link>
             <div className="contact-deadline">
-              <span>ENTRY FEE</span><strong>₹10,000 per team</strong>
-              <small>Payment instructions will be shared by the organisers.</small>
+              <span>ENTRY FEE</span><strong>{formatInr(site.entryFee)} per team</strong>
+              <small>Pay by UPI while you register. Have your 12-digit reference ready.</small>
             </div>
           </div>
         </div>
       </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <a className="brand footer-brand" href="#top" aria-label="HPL 2027 home">
-            <span className="brand-mark">
-              <Image src="/images/hpl-logo.jpeg" alt="" width={48} height={48} />
-            </span>
-            <span className="brand-copy">
-              <strong>HPL <span>2027</span></strong>
-              <small>Beyond hospitals. United by cricket.</small>
-            </span>
-          </a>
-          <p>Organised by Harshamitra Hospital<br />Nagamangalam, Trichy</p>
-          <a className="footer-contact" href="tel:+919363112508">
-            <Phone size={15} aria-hidden="true" /> Tournament Chairman · 93631 12508
-          </a>
-          <span className="footer-copyright">© HPL 2027</span>
-        </div>
-      </footer>
     </>
   );
 }
