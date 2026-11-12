@@ -17,6 +17,7 @@ import { LogoMark } from "@/components/brand/logos";
 import { GalleryTeaser } from "@/components/gallery/gallery-teaser";
 import { RegisterButton } from "@/components/registration/register-button";
 import { Scene } from "@/components/scenes";
+import { PixelRoster } from "@/components/scenes/pixel-roster";
 import { PixelUmpire } from "@/components/scenes/pixel-umpire";
 import { Reveal } from "@/components/site/reveal";
 import { SponsorMarquee } from "@/components/sponsors/sponsor-marquee";
@@ -201,6 +202,7 @@ export default function Home() {
               <li key={role}><Check size={17} aria-hidden="true" />{role}</li>
             ))}
           </ul>
+          <PixelRoster />
           <div className="roles-footer">Mixed-gender teams · One hospital per player</div>
         </div>
       </Reveal>

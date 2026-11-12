@@ -1,0 +1,167 @@
+/* Pixel roster ─────────────────────────────────────────────────────────────
+   One loop is 12 beats: the ball lands on each of the ten players in turn
+   (beats 0–9), then the whole team jumps together (beats 10–11).
+   `step-end` keeps every change a hard frame flip, like a sprite sheet. */
+
+.roster-stage {
+  container-type: inline-size;
+  overflow: hidden;
+  margin: 0 -30px;
+  background: var(--forest);
+}
+
+.roster-inner {
+  --px: 3px;
+  --beat: 0.9s;
+  --loop: calc(var(--beat) * 12);
+  padding: 16px 12px 0;
+}
+
+@container (min-width: 460px) {
+  .roster-inner { --px: 4px; }
+}
+
+@container (max-width: 325px) {
+  .roster-inner { --px: 2px; }
+}
+
+.roster-captions {
+  display: grid;
+  height: 22px;
+  place-items: center;
+}
+
+.roster-caption {
+  grid-area: 1 / 1;
+  padding: 5px 8px 4px;
+  background: var(--lime);
+  box-shadow: 3px 3px 0 rgb(0 0 0 / 30%);
+  color: var(--forest-deep);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  animation: roster-turn var(--loop) step-end infinite;
+  animation-delay: calc(var(--beat) * (var(--i) - 12));
+}
+
+/* Still frame (also the reduced-motion state): the team, captioned. */
+.roster-caption-all {
+  background: var(--pink);
+  opacity: 1;
+  animation-name: roster-all;
+  animation-delay: 0s;
+}
+
+.roster-lineup {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: end;
+  justify-items: center;
+  padding-top: calc(var(--px) * 9);
+}
+
+.roster-player {
+  animation: roster-cheer var(--loop) step-end infinite;
+}
+
+.roster-player svg {
+  display: block;
+  width: calc(var(--px) * 10);
+  height: auto;
+  overflow: visible;
+  animation: roster-hop var(--loop) step-end infinite;
+  animation-delay: calc(var(--beat) * (var(--i) - 12));
+}
+
+/* The track is one player wide and steps along the line; the ball inside it
+   bounces once per beat, so it changes player at the top of each arc. */
+.roster-ball-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10%;
+  animation:
+    roster-pass var(--loop) steps(12, jump-none) infinite,
+    roster-ball-visible var(--loop) step-end infinite;
+  animation-delay: calc(var(--beat) * -0.5), 0s;
+}
+
+.roster-ball {
+  display: block;
+  width: calc(var(--px) * 2);
+  height: calc(var(--px) * 2);
+  margin: calc(var(--px) * 7) auto 0;
+  background: var(--lime);
+  animation: roster-bounce var(--beat) step-end infinite;
+}
+
+.roster-ground {
+  height: 9px;
+  background: linear-gradient(to bottom, var(--lime) 3px, #1c4638 0);
+}
+
+@keyframes roster-turn {
+  0% { opacity: 1; }
+  8.333% { opacity: 0; }
+}
+
+@keyframes roster-all {
+  0% { opacity: 0; }
+  83.333% { opacity: 1; }
+}
+
+@keyframes roster-hop {
+  0% { transform: translateY(calc(var(--px) * -1)); }
+  4% { transform: translateY(0); }
+}
+
+@keyframes roster-cheer {
+  0% { transform: translateY(0); }
+  85% { transform: translateY(calc(var(--px) * -2)); }
+  89% { transform: translateY(0); }
+  93% { transform: translateY(calc(var(--px) * -2)); }
+  97% { transform: translateY(0); }
+}
+
+@keyframes roster-pass {
+  from { transform: translateX(0); }
+  to { transform: translateX(1100%); }
+}
+
+@keyframes roster-ball-visible {
+  0% { opacity: 1; }
+  79.167% { opacity: 0; }
+  95.833% { opacity: 1; }
+}
+
+@keyframes roster-bounce {
+  0% { transform: translateY(0); }
+  12% { transform: translateY(calc(var(--px) * -3)); }
+  30% { transform: translateY(calc(var(--px) * -5)); }
+  50% { transform: translateY(calc(var(--px) * -6)); }
+  70% { transform: translateY(calc(var(--px) * -5)); }
+  88% { transform: translateY(calc(var(--px) * -3)); }
+}
+
+@media (max-width: 680px) {
+  .roster-stage {
+    margin-right: -20px;
+    margin-left: -20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roster-stage * {
+    animation: none !important;
+  }
+
+  .roster-ball-track {
+    display: none;
+  }
+}
