@@ -3,6 +3,7 @@
  * place. Change a date or the fee here and every page follows.
  */
 
+import type { LogoId } from "@/components/brand/logos";
 import type { SceneId } from "@/components/scenes";
 
 export const site = {
@@ -19,6 +20,12 @@ export const site = {
    * /animations and set the winner here.
    */
   heroScene: "cover-drive" as SceneId,
+
+  /**
+   * The logo used in the header, footer, hero badge and organiser console.
+   * Preview the options at /logos. "original" restores the metallic crest.
+   */
+  logo: "ribbon-bat" as LogoId,
 
   entryFee: 10_000,
 

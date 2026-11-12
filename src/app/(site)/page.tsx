@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
@@ -14,9 +13,11 @@ import {
   Trophy,
   UsersRound,
 } from "lucide-react";
+import { LogoMark } from "@/components/brand/logos";
 import { GalleryTeaser } from "@/components/gallery/gallery-teaser";
 import { RegisterButton } from "@/components/registration/register-button";
 import { Scene } from "@/components/scenes";
+import { PixelUmpire } from "@/components/scenes/pixel-umpire";
 import { Reveal } from "@/components/site/reveal";
 import { SponsorMarquee } from "@/components/sponsors/sponsor-marquee";
 import { formatInr, site } from "@/lib/site";
@@ -80,9 +81,7 @@ export default function Home() {
 
           <div className="hero-art">
             <Scene id={site.heroScene} />
-            <div className="art-crest" aria-hidden="true">
-              <Image src="/images/hpl-logo.jpeg" alt="" width={176} height={86} priority />
-            </div>
+            <LogoMark id={site.logo} className="art-crest" />
             <div className="art-date">
               <CalendarDays size={18} aria-hidden="true" />
               <span><strong>04 FEB</strong><small>WORLD CANCER DAY</small></span>
@@ -230,6 +229,7 @@ export default function Home() {
               </li>
             ))}
           </ol>
+          <PixelUmpire />
         </div>
       </section>
 

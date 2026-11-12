@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, LogOut } from "lucide-react";
 import { signOut } from "@/app/admin/actions";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ToastProvider } from "@/components/admin/toast";
+import { LogoMark } from "@/components/brand/logos";
 import { requireAdmin } from "@/lib/auth";
+import { site } from "@/lib/site";
 
 async function SignedInAs() {
   const admin = await requireAdmin();
@@ -26,9 +27,7 @@ export default function PanelLayout({ children }: LayoutProps<"/admin">) {
       <div className="adm-shell">
         <aside className="adm-side">
           <Link className="adm-brand" href="/admin">
-            <span className="adm-brand-mark">
-              <Image src="/images/hpl-logo.jpeg" alt="" width={44} height={44} />
-            </span>
+            <LogoMark id={site.logo} className="adm-brand-mark" />
             <span>
               <strong>HPL 2027</strong>
               <small>Organiser console</small>
