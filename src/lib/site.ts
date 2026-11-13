@@ -12,6 +12,8 @@ export const site = {
   tagline: "Beyond hospitals. United by cricket.",
   host: "Harshamitra Hospital",
   hostAddress: "Nagamangalam, Trichy",
+  /** Add the hospital's website here to turn its name into a link. */
+  hostUrl: "",
   city: "Trichy, Tamil Nadu",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
@@ -31,9 +33,9 @@ export const site = {
 
   registration: {
     // IST (UTC+05:30). Closing is inclusive of the whole of 15 January.
-    opensAt: "2026-12-15T00:00:00+05:30",
+    opensAt: "2026-11-14T00:00:00+05:30",
     closesAt: "2027-01-15T23:59:59+05:30",
-    opensLabel: "15 December 2026",
+    opensLabel: "14 November 2026",
     closesLabel: "15 January 2027",
   },
 
@@ -62,7 +64,7 @@ export type RegistrationPhase = "upcoming" | "open" | "closed";
 
 /**
  * Where we are in the registration window. Outside production the window is
- * always treated as open so the flow can be tested before 15 December.
+ * always treated as open so the flow can be tested at any time.
  */
 export function registrationPhase(now: number): RegistrationPhase {
   if (process.env.NODE_ENV !== "production") return "open";

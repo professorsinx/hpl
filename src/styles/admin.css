@@ -1013,3 +1013,9 @@
     left: 12px;
   }
 }
+
+.adm-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

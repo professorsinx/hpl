@@ -536,8 +536,8 @@ a {
   display: grid;
   grid-template-columns: 0.8fr 1fr;
   gap: 70px;
-  padding-top: 112px;
-  padding-bottom: 106px;
+  padding-top: 92px;
+  padding-bottom: 92px;
 }
 
 .about-heading h2,
@@ -590,32 +590,8 @@ a {
   color: var(--forest);
 }
 
-.about-stamp {
-  position: absolute;
-  right: 0;
-  bottom: 22px;
-  display: grid;
-  width: 90px;
-  height: 90px;
-  place-content: center;
-  gap: 4px;
-  border: 1px solid #dfe8cb;
-  border-radius: 50%;
-  color: #75983d;
-  text-align: center;
-  transform: rotate(12deg);
-}
 
-.about-stamp svg {
-  justify-self: center;
-}
 
-.about-stamp span {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.13em;
-  line-height: 1.4;
-}
 
 .format-section {
   padding: 82px 0 92px;
@@ -698,8 +674,8 @@ a {
   grid-template-columns: 1fr 0.82fr;
   align-items: center;
   gap: clamp(55px, 10vw, 130px);
-  padding-top: 110px;
-  padding-bottom: 114px;
+  padding-top: 92px;
+  padding-bottom: 96px;
 }
 
 .eligibility-copy {
@@ -1310,21 +1286,8 @@ a {
     font-size: 14px;
   }
 
-  .about-stamp {
-    right: 0;
-    bottom: 40px;
-    width: 69px;
-    height: 69px;
-  }
 
-  .about-stamp svg {
-    width: 24px;
-    height: 24px;
-  }
 
-  .about-stamp span {
-    font-size: 11px;
-  }
 
   .format-section {
     padding: 67px 0 70px;

@@ -19,6 +19,7 @@ const colours: Record<string, string> = {
   W: "#f7f8f2",
   G: "#d5dccf",
   P: "#e79ab4",
+  p: "#c9748f",
   Y: "#d3f25a",
   T: "#4fa391",
   C: "#7fb4d6",
@@ -30,12 +31,9 @@ const colours: Record<string, string> = {
   O: "#8a5a3b", // shoes
 };
 
-const COLS = 10;
-const ROWS = 17;
-
 const legs = (c: string) => Array<string>(4).fill(`..${c}${c}..${c}${c}..`);
 
-const team: { role: string; sprite: string[] }[] = [
+export const team: { role: string; sprite: string[] }[] = [
   {
     role: "Doctor",
     sprite: [
@@ -237,7 +235,7 @@ const team: { role: string; sprite: string[] }[] = [
   },
 ];
 
-function Sprite({ rows }: { rows: string[] }) {
+export function Sprite({ rows }: { rows: string[] }) {
   // Merge horizontal runs of the same colour into single rects.
   const rects = rows.flatMap((row, y) => {
     const runs = [];
@@ -254,7 +252,7 @@ function Sprite({ rows }: { rows: string[] }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${COLS} ${ROWS}`} shapeRendering="crispEdges">
+    <svg viewBox={`0 0 ${rows[0].length} ${rows.length}`} shapeRendering="crispEdges">
       {rects}
     </svg>
   );

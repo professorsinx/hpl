@@ -6,6 +6,7 @@ import {
   Check,
   Clock3,
   HeartPulse,
+  Hospital,
   Mail,
   MapPin,
   Phone,
@@ -17,6 +18,7 @@ import { LogoMark } from "@/components/brand/logos";
 import { GalleryTeaser } from "@/components/gallery/gallery-teaser";
 import { RegisterButton } from "@/components/registration/register-button";
 import { Scene } from "@/components/scenes";
+import { PixelCalendar, PixelRibbon } from "@/components/scenes/pixel-cause";
 import { PixelRoster } from "@/components/scenes/pixel-roster";
 import { PixelUmpire } from "@/components/scenes/pixel-umpire";
 import { Reveal } from "@/components/site/reveal";
@@ -31,10 +33,20 @@ const tournamentFacts = [
 ];
 
 const milestones = [
-  { date: "15 Dec 2026", title: "Registration opens", note: "Team entries begin" },
+  { date: "Open now", title: "Registration is open", note: "Team entries are being accepted" },
   { date: "15 Jan 2027", title: "Registration closes", note: "Final date to submit your team" },
   { date: "30 Jan 2027", title: "Fixtures released", note: "Match schedule announced" },
   { date: "04 Feb 2027", title: "Tournament begins", note: "World Cancer Day" },
+];
+
+// Figures: IARC Global Cancer Observatory (GLOBOCAN 2022), WHO and UICC.
+const cancerFacts = [
+  { stat: "1 in 5", text: "people will develop cancer at some point in their lifetime." },
+  { stat: "20 million", text: "new cases were diagnosed worldwide in 2022, with 9.7 million lives lost." },
+  { stat: "4 in 10", text: "cases are linked to causes we can change. Tobacco is the biggest of them." },
+  { stat: "14 lakh+", text: "new cases in India in a single year. Breast and oral cancers lead the list." },
+  { stat: "35 million", text: "new cases a year are expected by 2050. That is 77% more than in 2022." },
+  { stat: "Early", text: "is everything. Found early, many common cancers are far easier to treat." },
 ];
 
 const eligibleRoles = [
@@ -114,10 +126,39 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="host-section" id="host" aria-labelledby="host-title">
+        <div className="section-wrap host-layout">
+          <div>
+            <span className="section-kicker">ORGANISED &amp; HOSTED BY</span>
+            <h2 className="host-name" id="host-title">Harshamitra <span>Hospital</span></h2>
+            <div className="host-place"><MapPin size={16} aria-hidden="true" /> {site.hostAddress}, Tamil Nadu</div>
+          </div>
+          <div className="host-card">
+            <div className="host-card-head">
+              <span className="host-icon"><Hospital size={21} aria-hidden="true" /></span>
+              <div><small>MAIN ORGANISER</small><strong>The home of HPL</strong></div>
+            </div>
+            <p>
+              HPL is conceived, organised and hosted by {site.host}. Every
+              February the hospital brings the region&apos;s healthcare community
+              onto one ground for World Cancer Day: to play, to stand with
+              patients, and to talk openly about early detection.
+            </p>
+            <div className="host-links">
+              <Link href="/organizers">Meet the organising committee <ArrowRight size={15} aria-hidden="true" /></Link>
+              {site.hostUrl && (
+                <a href={site.hostUrl} target="_blank" rel="noreferrer">Visit the hospital <ArrowRight size={15} aria-hidden="true" /></a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Reveal as="section" className="about-section section-wrap" id="about">
         <div className="about-heading">
           <span className="section-kicker">MORE THAN MATCH DAY</span>
           <h2>Play together.<br /><span>Stand together.</span></h2>
+          <PixelRibbon />
         </div>
         <div className="about-copy">
           <p>
@@ -134,11 +175,39 @@ export default function Home() {
             Find your place on the team <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>
-        <div className="about-stamp" aria-hidden="true">
-          <HeartPulse size={31} strokeWidth={1.6} />
-          <span>UNITED<br />FOR CARE</span>
-        </div>
       </Reveal>
+
+      <section className="wcd-section" id="world-cancer-day" aria-labelledby="wcd-title">
+        <div className="section-wrap wcd-layout">
+          <div className="wcd-intro">
+            <PixelCalendar />
+            <span className="section-kicker">WHY WE PLAY ON 4 FEBRUARY</span>
+            <h2 id="wcd-title">One day.<br /><span>The whole world.</span></h2>
+            <p>
+              World Cancer Day began on 4 February 2000 in Paris, at the World
+              Summit Against Cancer, where the Charter of Paris Against Cancer
+              was signed. Led by the Union for International Cancer Control, it
+              is now marked around the world with one aim: fewer people facing
+              cancer, and no one facing it alone.
+            </p>
+            <p className="wcd-theme">
+              The 2025&ndash;2027 theme is <strong>United by Unique</strong>:
+              care that sees the person before the patient.
+            </p>
+          </div>
+          <div className="wcd-data">
+          <ul className="wcd-facts">
+            {cancerFacts.map(({ stat, text }) => (
+              <li className="wcd-fact" key={stat}><strong>{stat}</strong><span>{text}</span></li>
+            ))}
+          </ul>
+          <p className="wcd-source">
+            Figures from the IARC Global Cancer Observatory (GLOBOCAN 2022), the
+            World Health Organization and the Union for International Cancer Control.
+          </p>
+          </div>
+        </div>
+      </section>
 
       <section className="format-section">
         <div className="section-wrap">
@@ -244,8 +313,8 @@ export default function Home() {
             <span className="section-kicker">GET YOUR TEAM TOGETHER</span>
             <h2>Ready to take<br />the <span>field?</span></h2>
             <p>
-              Team registration opens 15 December 2026 and closes 15 January
-              2027. Start building your squad now.
+              Team registration is open now and closes on {site.registration.closesLabel}.
+              Pick your squad and get your entry in.
             </p>
             <div className="register-actions">
               <RegisterButton className="button button-forest">
@@ -253,7 +322,7 @@ export default function Home() {
               </RegisterButton>
               <span className="register-status">
                 <span className="status-dot" />
-                Opens {site.registration.opensLabel}
+                Open now · closes {site.registration.closesLabel}
               </span>
             </div>
           </div>

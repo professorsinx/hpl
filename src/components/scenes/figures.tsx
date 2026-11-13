@@ -326,3 +326,22 @@ export function Stage({ id, children }: { id: string; children: ReactNode }) {
     </>
   );
 }
+
+export const battingLegs = [
+  [[-8, -88], [-16, -46], [-22, -6]],
+  [[8, -88], [22, -48], [30, -6]],
+] as const;
+
+/** Both arms on the bat handle; rotates around the shoulders as one unit. */
+export function BattingArms({ look, className }: { look: Look; className: string }) {
+  const pivot = { transformOrigin: "2px -146px" };
+  return {
+    back: <Arm className={className} style={pivot} look={look} points={[[-6, -146], [8, -120], [15, -98]]} />,
+    front: (
+      <g className={className} style={pivot}>
+        <Bat x={16} y={-100} />
+        <Arm look={look} points={[[10, -146], [24, -120], [17, -88]]} />
+      </g>
+    ),
+  };
+}

@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { Check, Download, LoaderCircle, Mail, Phone, RotateCcw, Search, X } from "lucide-react";
+import { Check, Download, IndianRupee, LoaderCircle, Mail, Phone, RotateCcw, Search, X } from "lucide-react";
 import { decideRegistration, saveRegistrationNote } from "@/app/admin/actions";
 import { formatInr, site } from "@/lib/site";
-import type { RegistrationStatus, Team } from "@/types/database";
+import type { PaymentStatus, RegistrationStatus, Team } from "@/types/database";
 import { PageHead } from "./page-head";
 import { useNotify } from "./toast";
 
@@ -25,23 +25,47 @@ const filters: { id: Filter; label: string }[] = [
   { id: "rejected", label: "Rejected" },
 ];
 
-function toCsv(rows: RegistrationRow[]) {
-  const columns: [string, (row: RegistrationRow) => string | number | null][] = [
-    ["Reference", (row) => row.reference],
-    ["Submitted (IST)", (row) => row.submitted],
-    ["Team", (row) => row.team_name],
-    ["Hospital", (row) => row.hospital_name],
-    ["Location", (row) => row.hospital_address],
-    ["Captain", (row) => row.captain_name],
-    ["Captain phone", (row) => row.captain_phone],
-    ["Captain email", (row) => row.captain_email],
-    ["Vice-captain", (row) => row.vice_captain_name],
-    ["Vice-captain phone", (row) => row.vice_captain_phone],
-    ["UPI reference (UTR)", (row) => row.payment_utr],
-    ["Amount", (row) => row.entry_fee_amount],
-    ["Status", (row) => statusLabel[row.registration_status]],
-    ["Notes", (row) => row.admin_notes],
-  ];
+const paymentLabel: Record<PaymentStatus, string> = {
+  submitted: "Awaiting verification",
+  verified: "Verified",
+  failed: "Rejected",
+};
+
+type Column = [string, (row: RegistrationRow) => string | number | null];
+
+/** One row per payment, keyed by its transaction ID (unique in the database). */
+const paymentColumns: Column[] = [
+  ["Transaction ID (UTR)", (row) => row.payment_utr],
+  ["Amount (INR)", (row) => row.entry_fee_amount],
+  ["Payment status", (row) => paymentLabel[row.payment_status]],
+  ["Paid on (IST)", (row) => row.submitted],
+  ["Team", (row) => row.team_name],
+  ["Hospital", (row) => row.hospital_name],
+  ["Paid by (captain)", (row) => row.captain_name],
+  ["Captain phone", (row) => row.captain_phone],
+  ["Captain email", (row) => row.captain_email],
+  ["Registration reference", (row) => row.reference],
+  ["Notes", (row) => row.admin_notes],
+];
+
+const registrationColumns: Column[] = [
+  ["Reference", (row) => row.reference],
+  ["Submitted (IST)", (row) => row.submitted],
+  ["Team", (row) => row.team_name],
+  ["Hospital", (row) => row.hospital_name],
+  ["Location", (row) => row.hospital_address],
+  ["Captain", (row) => row.captain_name],
+  ["Captain phone", (row) => row.captain_phone],
+  ["Captain email", (row) => row.captain_email],
+  ["Vice-captain", (row) => row.vice_captain_name],
+  ["Vice-captain phone", (row) => row.vice_captain_phone],
+  ["UPI reference (UTR)", (row) => row.payment_utr],
+  ["Amount", (row) => row.entry_fee_amount],
+  ["Status", (row) => statusLabel[row.registration_status]],
+  ["Notes", (row) => row.admin_notes],
+];
+
+function toCsv(rows: RegistrationRow[], columns: Column[]) {
   const escape = (value: string | number | null) => {
     let text = String(value ?? "");
     // Neutralise spreadsheet formulas in visitor-supplied text.
@@ -71,25 +95,42 @@ export function RegistrationManager({ rows }: { rows: RegistrationRow[] }) {
     });
   }, [rows, filter, query]);
 
-  function download() {
+  function download(name: string, csv: string) {
     // The BOM makes Excel read the file as UTF-8.
-    const blob = new Blob(["﻿", toCsv(visible)], { type: "text/csv;charset=utf-8" });
+    const blob = new Blob(["\ufeff", csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "hpl-2027-registrations.csv";
+    link.download = name;
     link.click();
     URL.revokeObjectURL(url);
   }
+
+  // Every payment ever submitted, whatever the list is filtered to.
+  const downloadPayments = () =>
+    download(
+      "hpl-2027-payments.csv",
+      toCsv([...rows].sort((a, b) => a.payment_utr.localeCompare(b.payment_utr)), paymentColumns),
+    );
 
   return (
     <>
       <PageHead
         title="Registrations"
         action={
-          <button type="button" className="btn btn-outline" onClick={download} disabled={visible.length === 0}>
-            <Download size={16} aria-hidden="true" /> Export CSV
-          </button>
+          <div className="adm-head-actions">
+            <button type="button" className="btn btn-primary" onClick={downloadPayments} disabled={rows.length === 0}>
+              <IndianRupee size={16} aria-hidden="true" /> Payments report
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline"
+              onClick={() => download("hpl-2027-registrations.csv", toCsv(visible, registrationColumns))}
+              disabled={visible.length === 0}
+            >
+              <Download size={16} aria-hidden="true" /> Export teams
+            </button>
+          </div>
         }
       >
         Match each UPI reference against the bank statement, then verify the team. {formatInr(counts.verified * site.entryFee)} verified so far.

@@ -72,7 +72,7 @@ Open `/animations`, pick one of the four scenes, and set `heroScene` in
 ### Registration window
 
 The registration form unlocks on the dates in `src/lib/site.ts`
-(15 December 2026 to 15 January 2027, IST) and the server enforces the same
+(14 November 2026 to 15 January 2027, IST) and the server enforces the same
 window. Outside production (`npm run dev`) it is always open so the flow can
 be tested, and says so in a "Preview mode" note.
 

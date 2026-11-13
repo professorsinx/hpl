@@ -78,9 +78,9 @@
 
 .scene-cover-drive { --d: 4.2s; }
 
-.cd-swing { animation-name: cd-swing; }
-.cd-ball { animation-name: cd-ball; }
-.cd-callout { animation-name: scene-callout; transform: scale(0); }
+/* The shot is chosen per delivery (data-shot, set by cover-drive.tsx). Every
+   part switches keyframes in the same frame, so they restart in sync. */
+.cd-callout { transform: scale(0); }
 
 .cd-trail {
   fill: none;
@@ -90,7 +90,6 @@
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   opacity: 0;
-  animation-name: cd-trail;
 }
 
 .cd-burst {
@@ -99,8 +98,21 @@
   stroke-width: 3.5;
   stroke-linecap: round;
   opacity: 0;
-  animation-name: cd-burst;
 }
+
+[data-shot="six"] .cd-swing { animation-name: cd-swing; }
+[data-shot="six"] .cd-ball { animation-name: cd-ball; }
+[data-shot="six"] .cd-trail-six,
+[data-shot="four"] .cd-trail-four { animation-name: cd-trail; }
+[data-shot="six"] .cd-burst,
+[data-shot="four"] .cd-burst { animation-name: cd-burst; }
+[data-shot="six"] .cd-callout-six,
+[data-shot="four"] .cd-callout-four { animation-name: scene-callout; }
+
+[data-shot="four"] .cd-swing { animation-name: cd-swing-four; }
+[data-shot="four"] .cd-ball { animation-name: cd-ball-four; }
+[data-shot="block"] .cd-swing { animation-name: cd-swing-block; }
+[data-shot="block"] .cd-ball { animation-name: cd-ball-block; }
 
 @keyframes cd-swing {
   0% { transform: rotate(116deg); }
@@ -118,6 +130,51 @@
   34% { transform: translate(258px, 350px); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.5, 0.4, 1); }
   54% { transform: translate(628px, -49px); opacity: 1; }
   57%, 100% { transform: translate(660px, -84px); opacity: 0; }
+}
+
+/* Four: a flatter swing, and the ball skims away along the turf. */
+@keyframes cd-swing-four {
+  0% { transform: rotate(116deg); }
+  27% { transform: rotate(122deg); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  34% { transform: rotate(0deg); animation-timing-function: cubic-bezier(0.1, 0.6, 0.3, 1); }
+  45% { transform: rotate(-78deg); }
+  78% { transform: rotate(-78deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(116deg); }
+}
+
+@keyframes cd-ball-four {
+  0%, 7% { transform: translate(610px, 150px); opacity: 0; }
+  8% { transform: translate(610px, 150px); opacity: 1; animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.7); }
+  25% { transform: translate(372px, 388px); opacity: 1; }
+  34% { transform: translate(258px, 350px); opacity: 1; animation-timing-function: ease-in; }
+  40% { transform: translate(336px, 390px); opacity: 1; animation-timing-function: ease-out; }
+  46% { transform: translate(424px, 380px); opacity: 1; animation-timing-function: ease-in; }
+  51% { transform: translate(500px, 390px); opacity: 1; animation-timing-function: linear; }
+  58% { transform: translate(630px, 390px); opacity: 1; }
+  61%, 100% { transform: translate(680px, 390px); opacity: 0; }
+}
+
+/* Block: soft hands, bat dropped straight, ball dies at the batter's feet. */
+@keyframes cd-swing-block {
+  0% { transform: rotate(116deg); }
+  20% { transform: rotate(104deg); animation-timing-function: ease-in-out; }
+  33% { transform: rotate(10deg); }
+  36% { transform: rotate(16deg); }
+  70% { transform: rotate(16deg); animation-timing-function: ease-in-out; }
+  100% { transform: rotate(116deg); }
+}
+
+@keyframes cd-ball-block {
+  0%, 7% { transform: translate(610px, 150px); opacity: 0; }
+  8% { transform: translate(610px, 150px); opacity: 1; animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.7); }
+  25% { transform: translate(372px, 388px); opacity: 1; }
+  34% { transform: translate(262px, 356px); opacity: 1; animation-timing-function: ease-in; }
+  41% { transform: translate(292px, 390px); opacity: 1; animation-timing-function: ease-out; }
+  46% { transform: translate(312px, 380px); opacity: 1; animation-timing-function: ease-in; }
+  51% { transform: translate(330px, 390px); opacity: 1; animation-timing-function: ease-out; }
+  66% { transform: translate(352px, 390px); opacity: 1; }
+  80% { transform: translate(354px, 390px); opacity: 1; }
+  86%, 100% { transform: translate(354px, 390px); opacity: 0; }
 }
 
 @keyframes cd-trail {

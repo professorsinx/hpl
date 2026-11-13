@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import { Arm, Ball, Bat, Callout, Figure, Stage, Stumps, looks, palette, restingArms, toPath, type Look, type Pt } from "./figures";
+import { CoverDrive } from "./cover-drive";
+import { Arm, Ball, Bat, BattingArms, Callout, Figure, Stage, Stumps, battingLegs, looks, palette, restingArms, toPath, type Look, type Pt } from "./figures";
 import "@/styles/scenes.css";
 
 /**
@@ -10,51 +11,6 @@ import "@/styles/scenes.css";
 
 const VIEW_BOX = "0 0 560 460";
 const origin = (x: number, y: number): CSSProperties => ({ transformOrigin: `${x}px ${y}px` });
-
-const battingLegs = [
-  [[-8, -88], [-16, -46], [-22, -6]],
-  [[8, -88], [22, -48], [30, -6]],
-] as const;
-
-/** Both arms on the bat handle; rotates around the shoulders as one unit. */
-function BattingArms({ look, className }: { look: Look; className: string }) {
-  const pivot = origin(2, -146);
-  return {
-    back: <Arm className={className} style={pivot} look={look} points={[[-6, -146], [8, -120], [15, -98]]} />,
-    front: (
-      <g className={className} style={pivot}>
-        <Bat x={16} y={-100} />
-        <Arm look={look} points={[[10, -146], [24, -120], [17, -88]]} />
-      </g>
-    ),
-  };
-}
-
-/* 1 ── The Cover Drive ──────────────────────────────────────────────────── */
-
-export function CoverDrive() {
-  const look = looks.doctor;
-  const arms = BattingArms({ look, className: "sa cd-swing" });
-  return (
-    <svg className="scene scene-cover-drive" viewBox={VIEW_BOX} role="img" aria-label="A doctor in a white coat drives a tennis ball over the boundary for six.">
-      <Stage id="cd">
-        <Stumps x={146} y={402} />
-        <path className="sa cd-trail" d="M258,350 L640,-62" pathLength={100} />
-        <Figure x={226} y={402} look={look} legs={battingLegs} backArm={arms.back} frontArm={arms.front} />
-        <g transform="translate(258 350)">
-          <path
-            className="sa cd-burst"
-            d="M0,-24 V-11 M0,24 V11 M-24,0 H-11 M24,0 H11 M-17,-17 L-8,-8 M17,17 L8,8 M-17,17 L-8,8 M17,-17 L8,-8"
-          />
-        </g>
-        <g className="sa cd-ball" transform="translate(300 322)">
-          <Ball />
-        </g>
-        <Callout x={404} y={120} text="SIX!" className="sa cd-callout" />
-      </Stage>
-    </svg>
-  );
-}
 
 /* 2 ── Clean Bowled ─────────────────────────────────────────────────────── */
 
@@ -206,7 +162,7 @@ export const scenes = [
   {
     id: "cover-drive",
     name: "The Cover Drive",
-    summary: "A doctor in a white coat leans into a drive and sends the ball out of the ground for six.",
+    summary: "A doctor in a white coat bats through the overs: sixes, fours and the odd careful block, in a random order.",
     mood: "Confident, celebratory. The classic cricket hero shot.",
     Component: CoverDrive,
   },
